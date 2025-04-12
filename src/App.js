@@ -1,10 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import { Outlet } from "react-router-dom";
+import "./App.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <main className=' text-red-500'>
-      react app
+    <main>
+      <Header />
+      <div className=" pt-16">
+        <Outlet />
+      </div>
+      <Footer />
     </main>
   );
 }
