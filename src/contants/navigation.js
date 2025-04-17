@@ -1,6 +1,7 @@
 import { MdHomeFilled } from "react-icons/md";
 import { PiTelevisionFill } from "react-icons/pi";
 import { BiSolidMoviePlay } from "react-icons/bi";
+import { IoSearchOutline } from "react-icons/io5";
 
 export const navigation = [
   {
@@ -21,5 +22,10 @@ export const mobileNavigation = [
     href: "/",
     icon: <MdHomeFilled />
   },
-  ...navigation
+  ...navigation,
+  {
+    label: "search",
+    href: "/search",
+    icon: <IoSearchOutline />
+  }
 ]
