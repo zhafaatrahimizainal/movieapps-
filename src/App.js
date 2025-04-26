@@ -5,8 +5,12 @@ import Footer from "./components/Footer";
 import MobileNavigation from "./components/MobileNavigation";
 import axios from "axios";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setBannerData } from "./store/movieoSlice";
 
 function App() {
+  const dispatch = useDispatch()
+
   const fetchTrendingData = async () => {
     try {
       // const response = await axios.get("/trending/all/week");
@@ -15,7 +19,8 @@ function App() {
         },
       });
 
-      console.log("response", response);
+      dispatch(setBannerData(response.data.results))
+
     } catch (error) {
       console.log("error", error);
     }
