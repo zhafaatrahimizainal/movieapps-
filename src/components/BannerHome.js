@@ -1,4 +1,5 @@
 import React from "react";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
 const BannerHome = () => {
@@ -6,6 +7,13 @@ const BannerHome = () => {
   const imageURL = useSelector((state) => state.movieoData.imageURL)
   console.log("banner Home", bannerData);
 
+  const handleNext = () => {
+
+  }
+
+  const handlePrevious = () => {
+    
+  }
   return (
     <section className=" w-full h-full">
       <div className=" flex min-h-full max-h-[95vh] overflow-hidden">
@@ -13,13 +21,23 @@ const BannerHome = () => {
           bannerData.map((data, index) => {
             console.log("data", data)
             return (
-              <div className=" min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative">
+              <div className=" min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative group">
                 <div className=" w-full h-full">
                   <img
                     src={imageURL + data.backdrop_path}
                     className=" w-full h-full"
                     alt="profile"
                   />
+                </div>
+
+                {/* button next and previous */}
+                <div className=" absolute top-0 w-full h-full hidden group-hover:lg:flex items-center justify-between px-4">
+                  <button onClick={handlePrevious} className=" bg-white p-1 rounded-full text-xl z-10 text-black">
+                    <FaAngleLeft />
+                  </button>
+                  <button onClick={handleNext} className=" bg-white p-1 rounded-full text-xl z-10 text-black">
+                    <FaAngleRight />
+                  </button>
                 </div>
 
                 <div className=" absolute top-0 w-full h-full bg-gradient-to-t from-neutral-900 to-transparent">
