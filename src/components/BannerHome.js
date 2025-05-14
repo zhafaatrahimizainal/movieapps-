@@ -1,27 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
 const BannerHome = () => {
   const bannerData = useSelector((state) => state.movieoData.bannerData);
   const imageURL = useSelector((state) => state.movieoData.imageURL)
-  console.log("banner Home", bannerData);
+  const [currentImage, setCurrentImage] = useState(0)
 
   const handleNext = () => {
-
+    if (currentImage < bannerData.length - 1) {
+      setCurrentImage(preve => preve + 1)
+    }
   }
 
   const handlePrevious = () => {
-    
+    if (currentImage > 0) {
+      setCurrentImage(preve => preve - 1)
+    }
   }
+
+  useEffect(() => {
+    const interval = setInterval(() =>{
+      if (currentImage < bannerData.length - 1) {
+      handleNext()
+    }else{
+      setCurrentImage(0)
+    }
+    }, 10000)
+  
+    return () => {
+      clearInterval(interval)
+    }
+  }, [bannerData, imageURL])
+  
   return (
-    <section className=" w-full h-full">
+    <section className=" w-full h-full z">
       <div className=" flex min-h-full max-h-[95vh] overflow-hidden">
         {
           bannerData.map((data, index) => {
             console.log("data", data)
             return (
-              <div className=" min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative group">
+              <div className=" min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative group transition-all" style={{ transform: ` translateX(-${currentImage * 100}%)` }}>
                 <div className=" w-full h-full">
                   <img
                     src={imageURL + data.backdrop_path}
@@ -45,7 +64,7 @@ const BannerHome = () => {
 
                 <div className=" container mx-auto">
                   <div className=" container mx-auto w-full absolute bottom-0 max-w-md px-3">
-                    <h2 className=" font-bold text-2xl lg:text-4xl text-white drop-shadow-2xl">{data.title}</h2>
+                    <h2 className=" font-bold text-2xl lg:text-4xl text-white drop-shadow-2xl">{data?.title || data?.name}</h2>
                     <p className=" text-ellipsis line-clamp-3 my-2">{data.overview}</p>
                     <div className=" flex items-center gap-4">
                       <p>Rating : {Number(data.vote_average).toFixed(1)}+</p>
