@@ -1,12 +1,13 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import moment from 'moment'
 
 const Card = ({data, trending, index}) => {
     console.log("data", data)
 
     const imageURL = useSelector((state) => state.movieoData.imageURL)
     return (
-        <div className=' w-full max-w-[230px] h-80 overflow-hidden rounded relative'>
+        <div className=' w-full min-w-[230px] max-w-[230px] h-80 overflow-hidden rounded relative'>
             <img
                 src={imageURL + data?.poster_path}
             />
@@ -19,6 +20,15 @@ const Card = ({data, trending, index}) => {
                         </div>
                     )
                 }
+            </div>
+
+            <div className=' absolute bottom-0 h-16 backdrop-blur-3xl w-full bg-black/60 p-2'>
+                <h2 className=' text-ellipsis line-clamp-1 text-lg font-semibold'>{data?.title || data?.name}</h2>
+                <div className=' text-sm text-neutral-400 flex justify-between items-center'>
+                    <p>{moment(data.release_date).format("MMMM Do YYYY")}</p>
+                    <p className=' bg-black rounded-full px-1 text-xs text-white'>Rating: {Number(data.vote_average).toFixed(1)}</p>
+
+                </div>
             </div>
         </div>
     )
